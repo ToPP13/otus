@@ -7,6 +7,10 @@ else ()
 endif ()
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+#find_package(gtest REQUIRED)
+#enable_testing()
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIR})
 
 configure_file(version.h.in version.h)
 

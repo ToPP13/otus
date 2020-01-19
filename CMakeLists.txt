@@ -9,8 +9,15 @@ endif ()
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 #find_package(gtest REQUIRED)
 #enable_testing()
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIR})
+#find_package(GTest REQUIRED)
+#include_directories(${GTEST_INCLUDE_DIR})
+################################
+# GTest
+################################
+#ADD_SUBDIRECTORY (gtest-1.6.0)
+#enable_testing()
+#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+include(GoogleTest)
 
 configure_file(version.h.in version.h)
 

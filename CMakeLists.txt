@@ -11,9 +11,9 @@ endif ()
 
 # Load settings for an external project.
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-#find_library(gtest.a )
 find_package(GTest REQUIRED)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+find_package (Threads REQUIRED)
+
 
 # Copy a file to another location and modify its contents.
 configure_file(version.h.in version.h)
@@ -23,7 +23,6 @@ add_executable(hello_world_cli main.cpp)
 
 # Add a library to the project using the specified source files.
 add_library(hello_world lib.cpp)
-find_package (Threads)
 
 add_executable(test_version test_version.cpp)
 add_executable(gtest_version gtest_version.cpp)
@@ -42,11 +41,13 @@ target_include_directories(hello_world
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
 
+
 # CMAKE_CURRENT_BINARY_DIR - The path to the binary directory currently being processed.
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Add include directories to the build.
 include_directories(${GTEST_INCLUDE_DIR})
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 set_target_properties(test_version PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK

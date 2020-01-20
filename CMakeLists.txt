@@ -29,7 +29,6 @@ add_executable(gtest_version gtest_version.cpp)
 
 
 # Set propertiess to a target.
-#set_target_properties(hello_world_cli hello_world test_version PROPERTIES
 set_target_properties(hello_world_cli hello_world test_version gtest_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
@@ -43,7 +42,7 @@ target_include_directories(hello_world
 
 
 # CMAKE_CURRENT_BINARY_DIR - The path to the binary directory currently being processed.
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+#include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Add include directories to the build.
 include_directories(${GTEST_INCLUDE_DIR})

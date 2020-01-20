@@ -1,50 +1,68 @@
 cmake_minimum_required(VERSION 3.2)
 
+
 if (DEFINED ENV{TRAVIS_BUILD_NUMBER})
+    # Set the name of the project.
     project(hello_world VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else ()
+    # Set the name of the project.
     project(hello_world VERSION 0.0.1)
 endif ()
 
+# Load settings for an external project.
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-#find_package(gtest REQUIRED)
-#enable_testing()
-#find_package(GTest REQUIRED)
-#include_directories(${GTEST_INCLUDE_DIR})
+
+
 ################################
-# GTest
+# GTest v1
 ################################
 #ADD_SUBDIRECTORY (gtest-1.6.0)
 #enable_testing()
 #include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-include(GoogleTest)
+#include(GoogleTest)
 
+find_package(GTest REQUIRED)
+
+#Copy a file to another location and modify its contents.
 configure_file(version.h.in version.h)
 
+#Add an executable to the project using the specified source files.
 add_executable(hello_world_cli main.cpp)
+
+#Add a library to the project using the specified source files.
 add_library(hello_world lib.cpp)
+
 add_executable(test_version test_version.cpp)
 
 
+#Set propertiess to a target.
 set_target_properties(hello_world_cli hello_world test_version PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
+
+#Add include directories to a target.
+# CMAKE_BINARY_DIR - The path to the top level of the build tree.
 target_include_directories(hello_world
     PRIVATE "${CMAKE_BINARY_DIR}"
 )
+
+# CMAKE_CURRENT_BINARY_DIR - The path to the binary directory currently being processed.
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+# Add include directories to the build.
+include_directories(${GTEST_INCLUDE_DIR})
+
 set_target_properties(test_version PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+#    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR} ${GTEST_INCLUDE_DIRS}
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
-target_link_libraries(hello_world_cli PRIVATE
-    hello_world
-)
-target_link_libraries(test_version
-    ${Boost_LIBRARIES}
-    hello_world
-)
+target_link_libraries(hello_world_cli PRIVATE hello_world)
+target_link_libraries(test_version ${Boost_LIBRARIES} hello_world)
+
+#target_link_libraries(g_test_version ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES})
 
 if (MSVC)
     target_compile_options(hello_world_cli PRIVATE
@@ -85,3 +103,4 @@ include(CPack)
 enable_testing()
 
 add_test(test_version test_version)
+#add_test(test_version test_version)

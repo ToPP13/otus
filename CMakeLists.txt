@@ -21,7 +21,7 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 #include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 #include(GoogleTest)
 
-#find_package(GTest REQUIRED)
+find_package(GTest REQUIRED)
 
 #Copy a file to another location and modify its contents.
 configure_file(version.h.in version.h)

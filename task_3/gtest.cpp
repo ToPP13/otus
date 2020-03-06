@@ -23,19 +23,19 @@ TEST(gtest_custom_allocator, gtest_custom_allocator_basic)
 }
 
 
-TEST(gtest_custom_array, gtest_custom_array_basic)
-{
-    CustomArray<int, total> ca1;
-    for (int i = 0; i < total; ++i)
-        ASSERT_NO_THROW(ca1.set_elem(i, i));
-    ASSERT_THROW(ca1.set_elem(total, total), std::out_of_range);
-}
+//TEST(gtest_custom_array, gtest_custom_array_basic)
+//{
+//    CustomArray<int, total> ca1;
+//    for (int i = 0; i < total; ++i)
+//        ASSERT_NO_THROW(ca1.set_elem(i, i));
+//    ASSERT_THROW(ca1.set_elem(total, total), std::out_of_range);
+//}
 
 
-TEST(gtest_custom_array, gtest_custom_array_custom_allocator_basic)
-{
-    CustomArray<int, total, fixsize_logging_allocator<int, total>> ca2;
-    for (int i = 0; i < total; ++i)
-        ASSERT_NO_THROW(ca2.set_elem(i, i));
-    ASSERT_THROW(ca2.set_elem(total, total), std::out_of_range);
-}
+//TEST(gtest_custom_array, gtest_custom_array_custom_allocator_basic)
+//{
+//    CustomArray<int, total, fixsize_logging_allocator<int, total>> ca2;
+//    for (int i = 0; i < total; ++i)
+//        ASSERT_NO_THROW(ca2.set_elem(i, i));
+//    ASSERT_THROW(ca2.set_elem(total, total), std::out_of_range);
+//}

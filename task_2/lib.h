@@ -11,32 +11,15 @@ bool revert_lex_sort(std::string first, std::string second);
 std::vector<std::string> split(const std::string &str, char d);
 
 
-struct Ip{
-    Ip(std::vector<int> data)
-    {
-        components.reserve(data.size());
-        components = data;
-    }
-    Ip(std::vector<int> && data)
-    {
-        components.reserve(data.size());
-        components = data;
-    }
-    bool operator == (const Ip &Ref) const
-    {
-        return(this->components == Ref.components);
-    }
-    void print()
-    {
-        for(auto ip_part = this->components.cbegin(); ip_part != this->components.cend(); ++ip_part)
-        {
-            if (ip_part != this->components.cbegin())
-            {
-                std::cout << ".";
-            }
-            std::cout << *ip_part;
-        }
-    }
+struct Ip
+{
+    // The explicit keyword is only permitted in the header
+    explicit Ip(std::vector<int> data): components(data){}
+
+    explicit Ip(std::vector<int> && data): components(data) {};
+    bool operator == (const Ip &Ref) const;
+
+    void print();
     std::vector<int> components;
 };
 
@@ -62,12 +45,12 @@ bool filter_elem(CI ci, T cur_param, Args... args)
 }
 
 template<typename... Args>
-std::vector<Ip> filter(std::vector<Ip> filter_list, Args... args)
+std::vector<Ip> filter(const std::vector<Ip> & filter_list, Args... args)
 {
     std::vector<Ip> res;
     auto args_size = sizeof...(args);
 
-    for(auto ip : filter_list)
+    for(const auto ip : filter_list)
     {
         if (ip.components.size() < args_size)
             continue;

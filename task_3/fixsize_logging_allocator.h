@@ -67,7 +67,7 @@ struct fixsize_logging_allocator {
 #ifndef USE_PRETTY
         std::cout << "deallocate: [n  = " << n << "] " << std::endl;
 #else
-//        std::cout << __PRETTY_FUNCTION__ << "[n = " << n << "]" << std::endl;
+        std::cout << __PRETTY_FUNCTION__ << "[n = " << n << "]" << std::endl;
 #endif
         if (n>allocated_elements_num)
             throw std::bad_alloc();

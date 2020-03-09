@@ -17,6 +17,23 @@ void print_ip_pool(std::vector<Ip> ip_pool)
     }
 }
 
+bool Ip::operator == (const Ip &Ref) const
+{
+    return(components == Ref.components);
+}
+
+void Ip::print()
+{
+    for(auto ip_part = components.cbegin(); ip_part != components.cend(); ++ip_part)
+    {
+        if (ip_part != components.cbegin())
+        {
+            std::cout << ".";
+        }
+        std::cout << *ip_part;
+    }
+}
+
 // a < b - > (a,b) - ascending order
 // a < b - > (b,a) - descending order
 // compare fun for vector of one type but different size
@@ -38,7 +55,7 @@ bool desc_ip_sort(Ip & first,Ip & second)
 std::vector<Ip> filter(std::vector<Ip> filter_list)
 {
     std::vector<Ip> res;
-    std::copy(filter_list.begin(), filter_list.end(), res.begin());
+    std::copy(filter_list.begin(), filter_list.end(), std::back_inserter(res));
     return res;
 }
 

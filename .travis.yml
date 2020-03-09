@@ -16,8 +16,9 @@ before_script:
 - sudo apt-get update -qq
 script:
 # - cd task_1/
-- cd task_2/
+# - cd task_2/
 # - cd task_3/
+- cd task_4/
 - cmake .
 - cmake --build .
 - cmake --build . --target test
@@ -27,7 +28,8 @@ deploy:
   skip_cleanup: true
   script:
           #          - curl -T allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -utopp13:$BINTRAY_API_KEY "https://api.bintray.com/content/topp13/otus/allocator/$TRAVIS_BUILD_NUMBER/allocator-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
-          - curl -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -utopp13:$BINTRAY_API_KEY "https://api.bintray.com/content/topp13/otus/ip_filter/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+          # - curl -T ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -utopp13:$BINTRAY_API_KEY "https://api.bintray.com/content/topp13/otus/ip_filter/$TRAVIS_BUILD_NUMBER/ip_filter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+          - curl -T doxygen-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -utopp13:$BINTRAY_API_KEY "https://api.bintray.com/content/topp13/otus/doxygen/$TRAVIS_BUILD_NUMBER/doxygen-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
 
 
 

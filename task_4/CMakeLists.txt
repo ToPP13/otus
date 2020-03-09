@@ -16,25 +16,23 @@ find_package (Threads REQUIRED)
 configure_file(version.h.in version.h)
 
 # Add an executable to the project using the specified source files.
-add_executable(allocator_cli allocator.cpp)
+add_executable(doxygen_cli doxygen.cpp)
 
 # Add a library to the project using the specified source files.
-add_library(allocator lib.cpp logging_allocator.h fixsize_logging_allocator.h custom_array.h)
+add_library(doxygen lib.cpp)
 
 add_executable(gtest gtest.cpp)
 
 
 # Set propertiess to a target.
-set_target_properties(allocator_cli allocator gtest PROPERTIES
+set_target_properties(doxygen_cli doxygen gtest PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
 
 # Add include directories to a target.
 # CMAKE_BINARY_DIR - The path to the top level of the build tree.
-target_include_directories(allocator
-    PRIVATE "${CMAKE_BINARY_DIR}"
-)
+target_include_directories(doxygen PRIVATE "${CMAKE_BINARY_DIR}" )
 
 # Add include directories to the build.
 include_directories(${GTEST_INCLUDE_DIR})
@@ -44,25 +42,25 @@ set_target_properties(gtest PROPERTIES
     INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
 )
 
-target_link_libraries(allocator_cli PRIVATE allocator)
-target_link_libraries(gtest ${GTEST_LIBRARIES} allocator ${GTEST_MAIN_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(doxygen_cli PRIVATE doxygen)
+target_link_libraries(gtest ${GTEST_LIBRARIES} doxygen ${GTEST_MAIN_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 # Add compile options to a target.
 if (MSVC)
-    target_compile_options(allocator_cli PRIVATE
+    target_compile_options(doxygen_cli PRIVATE
         /W4
     )
-    target_compile_options(allocator PRIVATE
+    target_compile_options(doxygen PRIVATE
         /W4
     )
     target_compile_options(gtest PRIVATE
         /W4
     )
 else ()    
-    target_compile_options(allocator_cli PRIVATE
+    target_compile_options(doxygen_cli PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-    target_compile_options(allocator PRIVATE
+    target_compile_options(doxygen PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(gtest PRIVATE
@@ -73,7 +71,7 @@ endif()
 
 
 # Load and run CMake code from a file or module.
-install(TARGETS allocator_cli RUNTIME DESTINATION bin)
+install(TARGETS doxygen_cli RUNTIME DESTINATION bin)
 
 # Set a CMake, cache or environment variable to a given value.
 set(CPACK_GENERATOR DEB)
